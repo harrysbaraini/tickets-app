@@ -1,0 +1,23 @@
+name: tickets
+recipe: laravel
+services:
+  node:
+    type: node:14
+    build:
+      - yarn install
+config:
+  via: nginx
+  webroot: public
+  cache: none
+  database: postgres
+  php: '8.0'
+tooling:
+  yarn:
+    service: node
+  artisan:
+    service: appserver
+  t:
+    service: appserver
+    description: Run tests
+    dir: /app
+    cmd: phpunit --testdox --stop-on-failure
